@@ -6,22 +6,23 @@ const LiveCounter: React.FC = () => {
   const [count, setCount] = useState(1000000);
   const [activeCard, setActiveCard] = useState(0);
 
-  // Counter logic - simple linear decrease
+  // Lógica simples de contador decrescente
   useEffect(() => {
     const interval = setInterval(() => {
       setCount((prev) => {
-        const decrease = Math.floor(Math.random() * 15) + 5;
-        return Math.max(0, prev - decrease);
+        // Reduz um valor fixo pequeno para ser suave e previsível
+        if (prev <= 10000) return 1000000; // Reseta se ficar muito baixo
+        return prev - 25; 
       });
     }, 1000);
     return () => clearInterval(interval);
   }, []);
 
-  // Card rotation logic
+  // Rotação automática dos cards
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveCard((prev) => (prev + 1) % 3);
-    }, 5000); // Rotates every 5 seconds
+    }, 4000);
     return () => clearInterval(timer);
   }, []);
 
@@ -99,7 +100,7 @@ const LiveCounter: React.FC = () => {
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
-                            transition={{ duration: 0.4 }}
+                            transition={{ duration: 0.3 }} // Animação mais rápida e leve
                             className="absolute inset-0 w-full h-full"
                         >
                             <div className={`w-full h-full rounded-3xl p-8 flex flex-col items-center justify-center text-center shadow-2xl bg-gradient-to-br ${card.color} border border-white/10`}>

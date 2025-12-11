@@ -1,22 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Clock, Plane, Trophy, Gift, ArrowRight, Star, TrendingDown, AlertCircle } from 'lucide-react';
+import React from 'react';
+import { Plane, Trophy, Gift, ArrowRight, Star } from 'lucide-react';
 
 const LiveCounter: React.FC = () => {
-  const [count, setCount] = useState(1000000);
-
-  // Simple countdown logic without complex "AI" behavior
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCount((prev) => (prev > 10000 ? prev - 25 : 1000000));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const formattedCount = new Intl.NumberFormat('pt-AO', {
-    minimumIntegerDigits: 7,
-    useGrouping: true,
-  }).format(count);
-
   const registerLink = "https://www.elephantbet.co.ao/affiliates/?btag=2315330_l372210";
 
   const cards = [
@@ -50,39 +35,16 @@ const LiveCounter: React.FC = () => {
     <section className="py-20 bg-[#081826] relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         
-        {/* Static Counter Panel */}
-        <div className="w-full max-w-5xl mx-auto mb-16">
-            <div className="bg-[#0f172a] border border-gray-700 rounded-2xl p-8 shadow-xl">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-                    
-                    {/* Text Info */}
-                    <div className="text-center md:text-left">
-                        <div className="inline-flex items-center gap-2 bg-red-900/30 border border-red-800 text-red-400 px-3 py-1 rounded-md mb-3">
-                            <Clock size={16} />
-                            <span className="font-bold text-xs uppercase tracking-widest">Tempo Limitado</span>
-                        </div>
-                        <h2 className="text-3xl font-bold text-white mb-2">Bônus Disponível</h2>
-                        <p className="text-gray-400 text-sm">O fundo promocional está a descer.</p>
-                    </div>
-
-                    {/* The Counter */}
-                    <div className="flex flex-col items-center md:items-end">
-                        <div className="flex items-baseline gap-2 bg-black/40 px-6 py-4 rounded-lg border border-gray-700">
-                             <span className="text-gray-500 font-bold text-xl">KZ</span>
-                             <span className="text-5xl font-mono font-bold text-white tracking-widest">
-                                {formattedCount}
-                             </span>
-                        </div>
-                        <div className="flex items-center gap-2 mt-2 text-red-400 text-xs font-bold uppercase">
-                            <TrendingDown size={14}/>
-                            <span>Diminuindo em tempo real</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                Destaques da Elephant Bet
+            </h2>
+            <p className="text-gray-400">
+                Tudo o que você precisa para ganhar está aqui.
+            </p>
         </div>
 
-        {/* Static Cards Grid (Replaces Animated Carousel) */}
+        {/* Static Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 max-w-6xl mx-auto">
             {cards.map((card) => (
                 <div key={card.id} className={`rounded-2xl p-6 flex flex-col items-center text-center shadow-lg border border-white/10 ${card.color}`}>

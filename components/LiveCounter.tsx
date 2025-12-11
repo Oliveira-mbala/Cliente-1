@@ -21,7 +21,7 @@ const LiveCounter: React.FC = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveCard((prev) => (prev + 1) % 3);
-    }, 5000); // Slower rotation for stability
+    }, 5000); // Rotates every 5 seconds
     return () => clearInterval(timer);
   }, []);
 
@@ -61,9 +61,6 @@ const LiveCounter: React.FC = () => {
 
   return (
     <section className="py-16 bg-[#081826] relative overflow-hidden border-t border-white/5">
-        {/* Simple Background Glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[100px] pointer-events-none"></div>
-
       <div className="container mx-auto px-4 relative z-10">
         
         {/* Counter Section */}

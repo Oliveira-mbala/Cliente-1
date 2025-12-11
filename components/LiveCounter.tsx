@@ -6,11 +6,11 @@ const LiveCounter: React.FC = () => {
   const [count, setCount] = useState(1000000);
   const [activeCard, setActiveCard] = useState(0);
 
-  // Counter logic
+  // Counter logic - simple linear decrease
   useEffect(() => {
     const interval = setInterval(() => {
       setCount((prev) => {
-        const decrease = Math.floor(Math.random() * 25) + 5;
+        const decrease = Math.floor(Math.random() * 15) + 5;
         return Math.max(0, prev - decrease);
       });
     }, 1000);
@@ -21,7 +21,7 @@ const LiveCounter: React.FC = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveCard((prev) => (prev + 1) % 3);
-    }, 4000); 
+    }, 5000); // Slower rotation for stability
     return () => clearInterval(timer);
   }, []);
 
@@ -79,11 +79,9 @@ const LiveCounter: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-600 rounded-xl blur opacity-30"></div>
                 <div className="relative px-8 py-6 bg-[#0f172a] border border-gray-700/50 rounded-xl flex items-center gap-2 md:gap-4 shadow-xl">
                     <span className="text-elephant-accent font-bold text-2xl md:text-4xl mr-2">KZ</span>
-                    {formattedCount.split('').map((char, index) => (
-                         <div key={index} className={`font-mono text-4xl md:text-6xl font-bold ${char === ',' || char === '.' ? 'text-gray-500' : 'text-white'}`}>
-                            {char}
-                         </div>
-                    ))}
+                    <span className="font-mono text-4xl md:text-6xl font-bold text-white tracking-widest">
+                      {formattedCount}
+                    </span>
                 </div>
             </div>
             <p className="text-gray-400 mt-4 text-center max-w-md text-sm md:text-base">
@@ -92,8 +90,8 @@ const LiveCounter: React.FC = () => {
             </p>
         </div>
 
-        {/* Simplified Stacked Cards Section */}
-        <div className="relative h-[400px] w-full max-w-lg mx-auto mb-16 perspective-1000">
+        {/* Carousel Section */}
+        <div className="relative h-[400px] w-full max-w-lg mx-auto mb-16">
             <AnimatePresence mode="wait">
                 {cards.map((card, index) => {
                     if (index !== activeCard) return null;
@@ -101,10 +99,10 @@ const LiveCounter: React.FC = () => {
                     return (
                         <motion.div
                             key={card.id}
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
-                            transition={{ duration: 0.5 }}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            transition={{ duration: 0.4 }}
                             className="absolute inset-0 w-full h-full"
                         >
                             <div className={`w-full h-full rounded-3xl p-8 flex flex-col items-center justify-center text-center shadow-2xl bg-gradient-to-br ${card.color} border border-white/10`}>

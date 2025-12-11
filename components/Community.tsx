@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Users, MessageCircle } from 'lucide-react';
 
 const Community: React.FC = () => {
@@ -27,22 +26,20 @@ const Community: React.FC = () => {
               informações sobre bônus exclusivos e novidades da Elephant Bet em primeira mão.
             </p>
             
-            <motion.a
+            <a
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-8 py-4 rounded-full shadow-lg shadow-green-500/30 transition-colors"
+              className="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-8 py-4 rounded-full shadow-lg shadow-green-500/30 transition-all hover:scale-105"
             >
               <MessageCircle size={24} />
               Entrar no Grupo WhatsApp
-            </motion.a>
+            </a>
           </div>
 
           <div className="relative">
-             {/* Abstract Phone/Chat Visual */}
-             <div className="w-64 md:w-80 h-auto bg-gray-900 rounded-3xl border-4 border-gray-800 p-4 shadow-2xl rotate-6 hover:rotate-2 transition-transform duration-500">
+             {/* Abstract Phone/Chat Visual - Static */}
+             <div className="w-64 md:w-80 h-auto bg-gray-900 rounded-3xl border-4 border-gray-800 p-4 shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
                 <div className="bg-gray-800 h-8 w-24 mx-auto rounded-full mb-4"></div>
                 <div className="space-y-4">
                     <div className="bg-[#0f172a] p-3 rounded-lg rounded-tl-none border border-gray-700">

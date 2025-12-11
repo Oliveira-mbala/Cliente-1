@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Plane, LandPlot, Gift, Coins } from 'lucide-react';
 
 const features = [
@@ -11,7 +10,7 @@ const features = [
     gradient: "from-pink-500/20 to-transparent"
   },
   {
-    icon: <LandPlot size={40} className="text-green-500" />, // Using LandPlot as abstract field, typically standard trophy/ball is better but strictly using lucide
+    icon: <LandPlot size={40} className="text-green-500" />,
     title: "Futebol & Desportos",
     description: "Aposte nas maiores ligas do mundo com as odds mais competitivas do mercado.",
     color: "group-hover:shadow-green-500/40",
@@ -48,12 +47,8 @@ const Features: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
               className={`group relative bg-[#0f172a] p-6 rounded-2xl border border-gray-800 hover:border-gray-600 transition-all duration-300 hover:-translate-y-2 shadow-xl ${feature.color}`}
             >
               <div className={`absolute inset-0 rounded-2xl bg-gradient-to-b ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
@@ -67,7 +62,7 @@ const Features: React.FC = () => {
                   {feature.description}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

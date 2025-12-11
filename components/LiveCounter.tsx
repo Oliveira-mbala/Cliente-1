@@ -1,29 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Clock, Plane, Trophy, Gift, ArrowRight, Star } from 'lucide-react';
+import { Clock, Plane, Trophy, Gift, ArrowRight, Star, TrendingDown, AlertCircle } from 'lucide-react';
 
 const LiveCounter: React.FC = () => {
   const [count, setCount] = useState(1000000);
-  const [activeCard, setActiveCard] = useState(0);
 
-  // Lógica simples de contador decrescente
+  // Simple countdown logic without complex "AI" behavior
   useEffect(() => {
     const interval = setInterval(() => {
-      setCount((prev) => {
-        // Reduz um valor fixo pequeno para ser suave e previsível
-        if (prev <= 10000) return 1000000; // Reseta se ficar muito baixo
-        return prev - 25; 
-      });
+      setCount((prev) => (prev > 10000 ? prev - 25 : 1000000));
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
-
-  // Rotação automática dos cards
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveCard((prev) => (prev + 1) % 3);
-    }, 4000);
-    return () => clearInterval(timer);
   }, []);
 
   const formattedCount = new Intl.NumberFormat('pt-AO', {
@@ -37,99 +23,89 @@ const LiveCounter: React.FC = () => {
     {
       id: 0,
       title: "Aviator",
-      subtitle: "Multiplique seus ganhos",
-      color: "from-purple-900 to-red-900",
-      icon: <Plane className="text-white" size={64} />,
+      subtitle: "Multiplique",
+      color: "bg-gradient-to-br from-purple-900 to-red-900",
+      icon: <Plane className="text-white" size={48} />,
       desc: "O jogo mais popular de Angola. Voe alto e ganhe muito!",
     },
     {
       id: 1,
       title: "Futebol",
-      subtitle: "Aposte no seu time",
-      color: "from-green-900 to-teal-900",
-      icon: <Trophy className="text-white" size={64} />,
+      subtitle: "Aposte Agora",
+      color: "bg-gradient-to-br from-green-900 to-teal-900",
+      icon: <Trophy className="text-white" size={48} />,
       desc: "As melhores odds do mercado para os grandes campeonatos.",
     },
     {
       id: 2,
       title: "Bônus",
-      subtitle: "Ofertas Exclusivas",
-      color: "from-yellow-700 to-orange-900",
-      icon: <Gift className="text-white" size={64} />,
+      subtitle: "Ofertas",
+      color: "bg-gradient-to-br from-yellow-700 to-orange-900",
+      icon: <Gift className="text-white" size={48} />,
       desc: "Registe-se hoje e aproveite nosso bônus de boas-vindas.",
     }
   ];
 
   return (
-    <section className="py-16 bg-[#081826] relative overflow-hidden border-t border-white/5">
+    <section className="py-20 bg-[#081826] relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         
-        {/* Counter Section */}
-        <div className="flex flex-col items-center mb-16">
-            <div className="flex items-center gap-2 mb-4 bg-red-500/10 border border-red-500/20 px-4 py-1.5 rounded-full">
-                <Clock size={16} className="text-red-500" />
-                <span className="text-red-400 font-bold text-xs uppercase tracking-widest">Tempo Limitado</span>
-            </div>
-            
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 text-center">Bônus Disponível</h2>
-            
-            <div className="relative group p-1">
-                <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-600 rounded-xl blur opacity-30"></div>
-                <div className="relative px-8 py-6 bg-[#0f172a] border border-gray-700/50 rounded-xl flex items-center gap-2 md:gap-4 shadow-xl">
-                    <span className="text-elephant-accent font-bold text-2xl md:text-4xl mr-2">KZ</span>
-                    <span className="font-mono text-4xl md:text-6xl font-bold text-white tracking-widest">
-                      {formattedCount}
-                    </span>
+        {/* Static Counter Panel */}
+        <div className="w-full max-w-5xl mx-auto mb-16">
+            <div className="bg-[#0f172a] border border-gray-700 rounded-2xl p-8 shadow-xl">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+                    
+                    {/* Text Info */}
+                    <div className="text-center md:text-left">
+                        <div className="inline-flex items-center gap-2 bg-red-900/30 border border-red-800 text-red-400 px-3 py-1 rounded-md mb-3">
+                            <Clock size={16} />
+                            <span className="font-bold text-xs uppercase tracking-widest">Tempo Limitado</span>
+                        </div>
+                        <h2 className="text-3xl font-bold text-white mb-2">Bônus Disponível</h2>
+                        <p className="text-gray-400 text-sm">O fundo promocional está a descer.</p>
+                    </div>
+
+                    {/* The Counter */}
+                    <div className="flex flex-col items-center md:items-end">
+                        <div className="flex items-baseline gap-2 bg-black/40 px-6 py-4 rounded-lg border border-gray-700">
+                             <span className="text-gray-500 font-bold text-xl">KZ</span>
+                             <span className="text-5xl font-mono font-bold text-white tracking-widest">
+                                {formattedCount}
+                             </span>
+                        </div>
+                        <div className="flex items-center gap-2 mt-2 text-red-400 text-xs font-bold uppercase">
+                            <TrendingDown size={14}/>
+                            <span>Diminuindo em tempo real</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <p className="text-gray-400 mt-4 text-center max-w-md text-sm md:text-base">
-                O fundo promocional está a descer. <br/> 
-                <span className="text-white font-semibold">Registe-se agora</span> para garantir a sua parte!
-            </p>
         </div>
 
-        {/* Carousel Section */}
-        <div className="relative h-[400px] w-full max-w-lg mx-auto mb-16">
-            <AnimatePresence mode="wait">
-                {cards.map((card, index) => {
-                    if (index !== activeCard) return null;
-                    
-                    return (
-                        <motion.div
-                            key={card.id}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.95 }}
-                            transition={{ duration: 0.3 }} // Animação mais rápida e leve
-                            className="absolute inset-0 w-full h-full"
-                        >
-                            <div className={`w-full h-full rounded-3xl p-8 flex flex-col items-center justify-center text-center shadow-2xl bg-gradient-to-br ${card.color} border border-white/10`}>
-                                <div className="bg-white/10 p-6 rounded-full mb-6 backdrop-blur-sm shadow-inner">
-                                    {card.icon}
-                                </div>
-                                <h3 className="text-3xl font-bold text-white mb-2">{card.title}</h3>
-                                <p className="text-white/80 font-medium mb-4 uppercase tracking-wide text-sm">{card.subtitle}</p>
-                                <p className="text-gray-200 text-lg max-w-xs">{card.desc}</p>
-                                
-                                <div className="mt-6 flex gap-1">
-                                    <Star size={16} className="text-yellow-400 fill-yellow-400" />
-                                    <Star size={16} className="text-yellow-400 fill-yellow-400" />
-                                    <Star size={16} className="text-yellow-400 fill-yellow-400" />
-                                    <Star size={16} className="text-yellow-400 fill-yellow-400" />
-                                    <Star size={16} className="text-yellow-400 fill-yellow-400" />
-                                </div>
-                            </div>
-                        </motion.div>
-                    );
-                })}
-            </AnimatePresence>
+        {/* Static Cards Grid (Replaces Animated Carousel) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 max-w-6xl mx-auto">
+            {cards.map((card) => (
+                <div key={card.id} className={`rounded-2xl p-6 flex flex-col items-center text-center shadow-lg border border-white/10 ${card.color}`}>
+                    <div className="bg-white/10 p-4 rounded-xl mb-4 backdrop-blur-sm">
+                        {card.icon}
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-1">{card.title}</h3>
+                    <span className="text-white/70 text-xs font-bold uppercase tracking-wider mb-4 bg-black/20 px-2 py-1 rounded">{card.subtitle}</span>
+                    <p className="text-gray-200 text-sm leading-relaxed mb-6">{card.desc}</p>
+                    <div className="mt-auto flex gap-1 opacity-75">
+                        {[...Array(5)].map((_, i) => (
+                            <Star key={i} size={14} className="text-yellow-400 fill-yellow-400" />
+                        ))}
+                    </div>
+                </div>
+            ))}
         </div>
 
         {/* CTA Text & Button */}
-        <div className="text-center mt-12 relative z-20">
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-8 leading-relaxed">
+        <div className="text-center">
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-8">
                 Clica já em registar e ganhe seu <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-elephant-accent to-purple-400">
+                <span className="text-elephant-accent">
                     bônus de boas vindas
                 </span>
             </h3>
@@ -138,12 +114,10 @@ const LiveCounter: React.FC = () => {
                 href={registerLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-10 py-5 font-bold text-white bg-elephant-accent rounded-full shadow-lg hover:bg-pink-600 transition-all hover:scale-105"
+                className="inline-flex items-center justify-center px-10 py-5 font-bold text-white bg-elephant-accent rounded-full hover:bg-pink-700 transition-colors shadow-lg"
             >
-                <span className="relative flex items-center gap-3 text-xl tracking-wide">
-                    REGISTAR AGORA
-                    <ArrowRight />
-                </span>
+                <span className="mr-3 text-xl">REGISTAR AGORA</span>
+                <ArrowRight size={20} />
             </a>
         </div>
 
